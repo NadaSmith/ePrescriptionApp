@@ -12,6 +12,8 @@ import { register } from "./controllers/auth.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js"
 import medsRoutes from "./routes/meds.js"
+import { addMed } from "./controllers/meds.js"
+import { verifyToken } from "./middleware/auth.js";
 
 
 /* CONFIGURATIONS */
@@ -39,9 +41,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-/* ROUTES  */   //the last part is the controller
+/* ROUTES With files */   //the last part is the controller
 app.post("/auth/register", upload.single('picture'), register);
-app.post("/posts", verifyToken, upload.single("picture"), createPost);
+app.post("/meds", verifyToken, upload.single("picture"), addMed);
 
 /* ROUTES */
 app.use("/auth", authRoutes);
