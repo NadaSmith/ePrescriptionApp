@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 // Register a new user
-exports.registerUser = async (req, res) => {
+const registerUser = async (req, res) => {
     try {
           // Extract user data from the request body
           const { 
@@ -44,7 +44,7 @@ exports.registerUser = async (req, res) => {
     }
 };
 
-exports.login = async (req, res) => {
+const login = async (req, res) => {
     try{
         const { username, password } = req.body;
         const user = await User.findOne({ username: username });
@@ -60,4 +60,7 @@ exports.login = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Server error' });
     }
-}
+};
+
+
+module.exports = { registerUser, login }

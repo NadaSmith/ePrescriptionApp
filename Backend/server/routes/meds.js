@@ -1,11 +1,10 @@
-import express from "express";
-import {
+const express = require("express");
+const {
     getMeds,
     addRemoveMeds,
     updateMeds,
-
-} from "..//controllers/meds.js";
-import { verifyToken } from "../middleware/auth.js";
+} = require("..//controllers/meds.js");
+const { verifyToken } = require("../middleware/auth.js");
 
 const router = express.Router();
 
@@ -13,9 +12,9 @@ const router = express.Router();
 router.get("/:patientId/meds", verifyToken, getMeds);
 
 //add or remove medication
-router.patch("/:id/:medId", verifyToken, addRemoveMeds);
+router.patch("/:patientId/:medId", verifyToken, addRemoveMeds);
 
 //update medication information
-router.patch("/:id/meds/:medId", verifyToken, updateMeds)
+router.patch("/:patientId/meds/:medId", verifyToken, updateMeds)
 
-export default router;
+module.exports = router;

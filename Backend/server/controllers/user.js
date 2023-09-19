@@ -1,8 +1,8 @@
-import User from '../models/User';
+const User = require('../models/User.js');
 
 
 //read user details
-export const getUser = async (req, res) => {
+const getUser = async (req, res) => {
     try {
       const { id } = req.params;
       const user = await User.findById(id);
@@ -13,7 +13,7 @@ export const getUser = async (req, res) => {
 }
 
 //read user's list of patients
-export const getUserPatients = async (req, res) => {
+const getUserPatients = async (req, res) => {
     try {
         const { id } = req.params;
         const user = await User.findById(id);
@@ -34,7 +34,7 @@ export const getUserPatients = async (req, res) => {
 }
 
 //add or remove patient from user's patient's list
-export const addRemovePatient = async (req, res) => {
+const addRemovePatient = async (req, res) => {
     try {
         const { id, patientId } = req.params;
         const user = await User.findById(id);
@@ -66,7 +66,7 @@ export const addRemovePatient = async (req, res) => {
 }
 
 // Update patient information
-export const updatePatient = async (req, res) => {
+const updatePatient = async (req, res) => {
     try {
         const { id, patientId } = req.params;
         const user = await User.findById(id);
@@ -95,3 +95,4 @@ export const updatePatient = async (req, res) => {
     }
 };
 
+module.exports = { getUser, getUserPatients, addRemovePatient, updatePatient };

@@ -1,24 +1,22 @@
-import express from "express";
-import bodyParser from "body-parser";
-import mongoose from "mongoose";
-import cors from "cors";
-import dotenv from "dotenv";
-import multer from "multer";
-import helmet from "helmet";
-import morgan from "morgan";
-import path from "path";
-import { fileURLToPath } from "url";
-import { register } from "./controllers/auth.js";
-import authRoutes from "./routes/auth.js";
-import userRoutes from "./routes/users.js"
-import medsRoutes from "./routes/meds.js"
-import { addMed } from "./controllers/meds.js"
-import { verifyToken } from "./middleware/auth.js";
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const multer = require("multer");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const path = require("path");
+const { fileURLToPath } = require("url");
+const { register } = require("./controllers/auth.js");
+const authRoutes = require("./routes/auth.js");
+const userRoutes = require("./routes/users.js");
+const medsRoutes = require("./routes/meds.js");
+const  { addRemoveMed } = require("./controllers/meds.js");
+const { verifyToken } = require("./middleware/auth.js");
 
 
 /* CONFIGURATIONS */
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -41,14 +39,15 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-/* ROUTES With files */   //the last part is the controller
-app.post("/auth/register", upload.single('picture'), register);
-app.post("/meds", verifyToken, upload.single("picture"), addMed);
-
 /* ROUTES */
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/meds", medsRoutes);
+
+//static catch-all app; always goes last bc want to test everything else first
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+})
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6002;

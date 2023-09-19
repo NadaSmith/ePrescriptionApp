@@ -1,10 +1,11 @@
-import Medication from '../models/Medication';
+const Med = require('../models/Meds.js');
+const User = require('../models/User.js');
 
 // Read medications for a particular patient
-export const getMeds = async (req, res) => {
+const getMeds = async (req, res) => {
     try {
         const { patientId } = req.params;
-        const medications = await Medication.find({ patient: patientId });
+        const medications = await Med.find({ patient: patientId });
         res.status(200).json(medications);
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
@@ -12,11 +13,11 @@ export const getMeds = async (req, res) => {
 };
 
 // Add or remove medication for a patient
-export const addRemoveMeds = async (req, res) => {
+const addRemoveMeds = async (req, res) => {
     try {
-        const { id, medId } = req.params;
-        const patient = await User.findById(id);
-        const medication = await Medication.findById(medId);
+        const { patientId, medId } = req.params;
+        const patient = await User.findById(patientId);
+        const medication = await Med.findById(medId);
 
         // Check if the medication exists
         if (!medication) {
@@ -28,7 +29,7 @@ export const addRemoveMeds = async (req, res) => {
 
         if (patientHasMedication) {
             // Remove the medication from the patient's list
-            patient.medications = patient.medications.filter((id) => id !== medId);
+            patient.medications = patient.medications.filter((id) => patientId !== medId);
         } else {
             // Add the medication to the patient's list
             patient.medications.push(medId);
@@ -45,21 +46,32 @@ export const addRemoveMeds = async (req, res) => {
 };
 
 // Update medication information
-export const updateMeds = async (req, res) => {
+const updateMeds = async (req, res) => {
     try {
-        const { id, medId } = req.params;
-        const medication = await Medication.findById(medId);
+        const { patientIdd, medId } = req.params;
+        const medication = await Med.findById(medId);
 
         // Check if the medication exists
         if (!medication) {
             return res.status(404).json({ message: 'Medication not found' });
         }
 
+
         // Update medication details using req.body
-        const { name, dosage, frequency } = req.body;
+        const { name, dosage, startDate, direction, dispense, dispenseUnits, refills, supply } = req.body;
+
+        if (!name || !dosage || !startDate || !direction || !dispense || !dispenseUnits || !refills || !supply) {
+            return res.status(400).json({ success: false, error: 'Required fields are missing' });
+        }
+
         if (name) medication.name = name;
         if (dosage) medication.dosage = dosage;
-        if (frequency) medication.frequency = frequency;
+        if (startDate) medication.startDate = startDate;
+        if (direction) medication.direction = direction;
+        if (dispense) medication.dispense = dispense;
+        if (dispenseUnits) medication.dispenseUnits = dispenseUnits;
+        if (refills) medication.refills = refills;
+        if (supply) medication.supply = supply;
 
         // Save the updated medication
         await medication.save();
@@ -70,3 +82,6 @@ export const updateMeds = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
+
+module.exports = { getMeds, addRemoveMeds, updateMeds };

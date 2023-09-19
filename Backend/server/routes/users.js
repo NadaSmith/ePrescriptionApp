@@ -1,24 +1,24 @@
-import express from "express";
-import {
+const express = require("express");
+const {
     getUser,
     getUserPatients,
     addRemovePatient,
     updatePatient,
-} from "../controllers/users.js";
-import { verifyToken } from "../middleware/auth.js";
+} = require("../controllers/user.js");
+const { verifyToken } = require("../middleware/auth.js");
 
 const router = express.Router();
 
 //read user details
-router.get("/:id", verifyToken, getUser);
+router.get("/:useriId", verifyToken, getUser);
 
 //read user's list of patients
-router.get('/:id/patients', verifyToken, getUserPatients);
+router.get('/:userId/patients', verifyToken, getUserPatients);
 
 //Add or Remove a patient 
-router.patch("/:id/:patientId", verifyToken, addRemovePatient);
+router.patch("/:userId/:patientId", verifyToken, addRemovePatient);
 
 //update patient information 
-router.patch("/:id/patients/:patientId", verifyToken, updatePatient)
+router.patch("/:userId/patients/:patientId", verifyToken, updatePatient)
 
-export default router;
+module.exports = router;
