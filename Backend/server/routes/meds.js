@@ -10,7 +10,7 @@ import { verifyToken } from "../middleware/auth.js";
 const router = express.Router();
 
 //read medication details
-router.get("/:id", verifyToken, getMeds);
+router.get("/:patientId/meds", verifyToken, getMeds);
 
 //add or remove medication
 router.patch("/:id/:medId", verifyToken, addRemoveMeds);
