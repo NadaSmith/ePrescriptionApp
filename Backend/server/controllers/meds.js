@@ -48,7 +48,7 @@ const addRemoveMeds = async (req, res) => {
 // Update medication information
 const updateMeds = async (req, res) => {
     try {
-        const { patientIdd, medId } = req.params;
+        const { patientId, medId } = req.params;
         const medication = await Med.findById(medId);
 
         // Check if the medication exists

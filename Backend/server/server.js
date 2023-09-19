@@ -14,6 +14,11 @@ const userRoutes = require("./routes/users.js");
 const medsRoutes = require("./routes/meds.js");
 const  { addRemoveMed } = require("./controllers/meds.js");
 const { verifyToken } = require("./middleware/auth.js");
+const User = require("./models/User.js");
+const Med = require("./models/Meds.js");
+const { users } = require("./data/userData.js");
+const { medications } = require("./data/medData.js");
+
 
 
 /* CONFIGURATIONS */
@@ -59,8 +64,8 @@ mongoose
   .then(() => {
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
 
-    /* ADD DATA ONE TIME */
-    // User.insertMany(users);
-    // Post.insertMany(posts);
+    //Add data one time
+    User.insertMany(users);
+    Med.insertMany(medications);
   })
   .catch((error) => console.log(`${error} did not connect`));
