@@ -2,8 +2,8 @@ const express = require("express");
 const {
     getUser,
     getUserPatients,
-    addRemovePatient,
-    updatePatient,
+    createUser,
+    updateUser,
 } = require("../controllers/user.js");
 const { verifyToken } = require("../middleware/auth.js");
 
@@ -15,10 +15,10 @@ router.get("/:useriId", verifyToken, getUser);
 //read user's list of patients
 router.get('/:userId/patients', verifyToken, getUserPatients);
 
-//Add or Remove a patient 
-router.patch("/:userId/:patientId", verifyToken, addRemovePatient);
+//create a new user (registration)
+router.post("/registration", verifyToken, createUser)
 
-//update patient information 
-router.patch("/:userId/patients/:patientId", verifyToken, updatePatient)
+//update user information
+router.put("/:userId", verifyToken, updateUser);
 
 module.exports = router;
