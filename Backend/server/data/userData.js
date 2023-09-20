@@ -11,13 +11,15 @@ const users = [
       "password": "password123",
       "patientList": [
         {
-          "name": "Alice Johnson",
+          "firstname": "Alice ",
+          "lastname": "Brown ",
           "age": 32,
           "gender": "Female",
           "birthdate": "1990-05-15"
         },
         {
-          "name": "Bob Smith",
+          "firstname": "Bob",
+          "lastname": "Smith",
           "age": 45,
           "gender": "Male",
           "birthdate": "1978-08-22"
@@ -34,13 +36,15 @@ const users = [
       "password": "securepass",
       "patientList": [
         {
-          "name": "Eva Anderson",
+          "firstname": "Ava",
+          "lastname": "Anderson",
           "age": 28,
           "gender": "Female",
           "birthdate": "1995-02-10"
         },
         {
-          "name": "David Brown",
+          "firstname": "David",
+          "lastname": "Brown",
           "age": 55,
           "gender": "Male",
           "birthdate": "1968-12-05"
@@ -57,13 +61,15 @@ const users = [
         "password": "nursepass",
         "patientList": [
           {
-            "name": "Grace Taylor",
+            "firstname": "Grace",
+          "lastname": "Taylor",
             "age": 22,
             "gender": "Female",
             "birthdate": "2001-07-18"
           },
           {
-            "name": "John Wilson",
+            "firstname": "John",
+            "lastname": "Wilson",
             "age": 62,
             "gender": "Male",
             "birthdate": "1959-03-30"
@@ -80,13 +86,15 @@ const users = [
         "password": "pharmapass",
         "patientList": [
           {
-            "name": "Sophia Lee",
+            "firstname": "Sophia",
+            "lastname": "Lee",
             "age": 35,
             "gender": "Female",
             "birthdate": "1988-09-25"
           },
           {
-            "name": "Michael Clark",
+            "firstname": "Michael",
+            "lastname": "Clark",
             "age": 42,
             "gender": "Male",
             "birthdate": "1981-06-12"

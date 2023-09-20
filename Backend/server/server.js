@@ -1,3 +1,4 @@
+const User = require("./models/User.js"); // Import the User model
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -12,14 +13,9 @@ const { register } = require("./controllers/auth.js");
 const authRoutes = require("./routes/auth.js");
 const userRoutes = require("./routes/users.js");
 const medsRoutes = require("./routes/meds.js");
-const  { addRemoveMed } = require("./controllers/meds.js");
+const { addRemoveMed } = require("./controllers/meds.js");
 const { verifyToken } = require("./middleware/auth.js");
-const User = require("./models/User.js");
-const Med = require("./models/Meds.js");
-const { users } = require("./data/userData.js");
-const { medications } = require("./data/medData.js");
-
-
+const { users } = require("./data/userData.js"); // Import user data
 
 /* CONFIGURATIONS */
 dotenv.config();
@@ -49,7 +45,28 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/meds", medsRoutes);
 
-//static catch-all app; always goes last bc want to test everything else first
+// Define the /api/home route
+app.get('/api/home', async (req, res) => {
+  try {
+    // Perform any necessary logic here
+    // For example, you can fetch data from the User model
+    // or perform other actions to prepare the response
+
+    // Here, we're providing a simple JSON response
+    const generalInfo = {
+      message: 'Welcome to our website!',
+      featuredContent: 'Check out our latest articles.',
+    };
+
+    // Send a JSON response back to the frontend
+    res.status(200).json(generalInfo);
+  } catch (error) {
+    // Handle any errors and send an error response if needed
+    res.status(500).json({ error: 'An error occurred while processing the request.' });
+  }
+});
+
+// Static catch-all app; always goes last because we want to test everything else first
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 })
@@ -62,10 +79,13 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+    // Add data one time
+    // User.insertMany(users).then((insertedUsers) => {
+    //   console.log(`Inserted ${insertedUsers.length} users.`);
+    // }).catch((insertError) => {
+    //   console.error("Error inserting users:", insertError);
+    // });
 
-    //Add data one time
-    User.insertMany(users);
-    Med.insertMany(medications);
+    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
   })
   .catch((error) => console.log(`${error} did not connect`));

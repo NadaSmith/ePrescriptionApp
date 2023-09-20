@@ -1,105 +1,106 @@
 const mongoose = require("mongoose");
 
-
-const medications = [
+const users = [
     {
-      "name": "Aspirin",
-      "dosage": "81 mg",
-      "instructions": "Take one tablet daily with water.",
-      "side_effects": "Stomach upset, heartburn",
-      "category": "Analgesic"
+      "firstname": "John",
+      "lastname": "Doe",
+      "email": "john.doe@example.com",
+      "location": "New York",
+      "occupation": "Software Engineer",
+      "username": "johndoe",
+      "password": "password123",
+      "patientList": [
+        {
+          "firstname": "Alice ",
+          "lastname": "Brown ",
+          "age": 32,
+          "gender": "Female",
+          "birthdate": "1990-05-15"
+        },
+        {
+          "firstname": "Bob",
+          "lastname": "Smith",
+          "age": 45,
+          "gender": "Male",
+          "birthdate": "1978-08-22"
+        }
+      ]
     },
     {
-      "name": "Ibuprofen",
-      "dosage": "200 mg",
-      "instructions": "Take one tablet every 6 hours as needed.",
-      "side_effects": "Nausea, dizziness",
-      "category": "NSAID"
+      "firstname": "Jane",
+      "lastname": "Smith",
+      "email": "jane.smith@example.com",
+      "location": "San Francisco",
+      "occupation": "Doctor",
+      "username": "janesmith",
+      "password": "securepass",
+      "patientList": [
+        {
+          "firstname": "Ava",
+          "lastname": "Anderson",
+          "age": 28,
+          "gender": "Female",
+          "birthdate": "1995-02-10"
+        },
+        {
+          "firstname": "David",
+          "lastname": "Brown",
+          "age": 55,
+          "gender": "Male",
+          "birthdate": "1968-12-05"
+        }
+      ]
     },
     {
-      "name": "Lisinopril",
-      "dosage": "200 mg",
-      "instructions": "Take one tablet every 6 hours as needed.",
-      "side_effects": "Nausea, dizziness",
-      "category": "NSAID"
-    },
-    {
-      "name": "Metformin",
-      "dosage": "200 mg",
-      "instructions": "Take one tablet every 6 hours as needed.",
-      "side_effects": "Nausea, dizziness",
-      "category": "NSAID"
-    },
-    {
-      "name": "Simvastatin",
-      "dosage": "200 mg",
-      "instructions": "Take one tablet every 6 hours as needed.",
-      "side_effects": "Nausea, dizziness",
-      "category": "NSAID"
-    },
-    {
-      "name": "Omeprazole",
-     "dosage": "200 mg",
-      "instructions": "Take one tablet every 6 hours as needed.",
-      "side_effects": "Nausea, dizziness",
-      "category": "NSAID"
-    },
-    {
-      "name": "Amplodipine",
-      "dosage": "200 mg",
-      "instructions": "Take one tablet every 6 hours as needed.",
-      "side_effects": "Nausea, dizziness",
-      "category": "NSAID"
-    },
-    {
-      "name": "Humira",
-      "dosage": "200 mg",
-      "instructions": "Take one tablet every 6 hours as needed.",
-      "side_effects": "Nausea, dizziness",
-      "category": "NSAID"
-    },
-    {
-      "name": "Methorexate",
-      "dosage": "200 mg",
-      "instructions": "Take one tablet every 6 hours as needed.",
-      "side_effects": "Nausea, dizziness",
-      "category": "NSAID"
-    },
-    {
-      "name": "Losartan",
-      "dosage": "200 mg",
-      "instructions": "Take one tablet every 6 hours as needed.",
-      "side_effects": "Nausea, dizziness",
-      "category": "NSAID"
-    },
-    {
-      "name": "Setraline",
-      "dosage": "200 mg",
-      "instructions": "Take one tablet every 6 hours as needed.",
-      "side_effects": "Nausea, dizziness",
-      "category": "NSAID"
-    },
-    {
-      "name": "Albuterol",
-      "dosage": "200 mg",
-      "instructions": "Take one tablet every 6 hours as needed.",
-      "side_effects": "Nausea, dizziness",
-      "category": "NSAID"
-    },
-    {
-      "name": "Gabapentin",
-      "dosage": "200 mg",
-      "instructions": "Take one tablet every 6 hours as needed.",
-      "side_effects": "Nausea, dizziness",
-      "category": "NSAID"
-    },
-    {
-      "name": "Levothyroxine",
-      "dosage": "200 mg",
-      "instructions": "Take one tablet every 6 hours as needed.",
-      "side_effects": "Nausea, dizziness",
-      "category": "NSAID"
-    }
-];
-
-module.exports = medications; 
+        "firstname": "Mary",
+        "lastname": "Johnson",
+        "email": "mary.johnson@example.com",
+        "location": "Los Angeles",
+        "occupation": "Nurse",
+        "username": "maryj",
+        "password": "nursepass",
+        "patientList": [
+          {
+            "firstname": "Grace",
+          "lastname": "Taylor",
+            "age": 22,
+            "gender": "Female",
+            "birthdate": "2001-07-18"
+          },
+          {
+            "firstname": "John",
+            "lastname": "Wilson",
+            "age": 62,
+            "gender": "Male",
+            "birthdate": "1959-03-30"
+          }
+        ]
+      },
+      {
+        "firstname": "Emily",
+        "lastname": "Davis",
+        "email": "emily.davis@example.com",
+        "location": "Chicago",
+        "occupation": "Pharmacist",
+        "username": "emilyd",
+        "password": "pharmapass",
+        "patientList": [
+          {
+            "firstname": "Sophia",
+            "lastname": "Lee",
+            "age": 35,
+            "gender": "Female",
+            "birthdate": "1988-09-25"
+          },
+          {
+            "firstname": "Michael",
+            "lastname": "Clark",
+            "age": 42,
+            "gender": "Male",
+            "birthdate": "1981-06-12"
+          }
+        ]
+      }
+]
+  
+module.exports = users; 

@@ -31,58 +31,8 @@ const getUserPatients = async (req, res) => {
     }   catch (error) {
         res.status(404).json({ message: "Server error" });
     }
-}
-
-// Create a new user (registration)
-const createUser = async (req, res) => {
-    try {
-        const { firstname, lastname, email, username, password, location, occupation, patientlist } = req.body;
-        const newUser = new User({
-            firstname,
-            lastname,
-            email,
-            username,
-            password,
-            location,
-            occupation,
-            patientlist,
-        });
-        const savedUser = await newUser.save();
-        res.status(201).json(savedUser);
-    } catch (error) {
-        res.status(500).json({ message: 'Server error' });
-    }
 };
 
-// Update user information by ID
-const updateUser = async (req, res) => {
-    try {
-        const { userId } = req.params;
-        const { firstname, lastname, email, username, password, location, occupation, patientlist } = req.body;
 
-        const updatedUser = await User.findByIdAndUpdate(
-            userId,
-            {
-                firstname,
-                lastname,
-                email,
-                username,
-                password, // You may want to hash the password before updating.
-                location,
-                occupation,
-                patientlist,
-            },
-            { new: true }
-        );
 
-        if (!updatedUser) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        res.status(200).json(updatedUser);
-    } catch (error) {
-        res.status(500).json({ message: 'Server error' });
-    }
-};
-
-module.exports = { getUser, getUserPatients, createUser, updateUser };
+module.exports = { getUser, getUserPatients };
