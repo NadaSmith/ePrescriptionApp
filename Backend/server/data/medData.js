@@ -1,106 +1,106 @@
 const mongoose = require("mongoose");
 
-const users = [
-    {
-      "firstname": "John",
-      "lastname": "Doe",
-      "email": "john.doe@example.com",
-      "location": "New York",
-      "occupation": "Software Engineer",
-      "username": "johndoe",
-      "password": "password123",
-      "patientList": [
-        {
-          "firstname": "Alice ",
-          "lastname": "Brown ",
-          "age": 32,
-          "gender": "Female",
-          "birthdate": "1990-05-15"
-        },
-        {
-          "firstname": "Bob",
-          "lastname": "Smith",
-          "age": 45,
-          "gender": "Male",
-          "birthdate": "1978-08-22"
-        }
-      ]
-    },
-    {
-      "firstname": "Jane",
-      "lastname": "Smith",
-      "email": "jane.smith@example.com",
-      "location": "San Francisco",
-      "occupation": "Doctor",
-      "username": "janesmith",
-      "password": "securepass",
-      "patientList": [
-        {
-          "firstname": "Ava",
-          "lastname": "Anderson",
-          "age": 28,
-          "gender": "Female",
-          "birthdate": "1995-02-10"
-        },
-        {
-          "firstname": "David",
-          "lastname": "Brown",
-          "age": 55,
-          "gender": "Male",
-          "birthdate": "1968-12-05"
-        }
-      ]
-    },
-    {
-        "firstname": "Mary",
-        "lastname": "Johnson",
-        "email": "mary.johnson@example.com",
-        "location": "Los Angeles",
-        "occupation": "Nurse",
-        "username": "maryj",
-        "password": "nursepass",
-        "patientList": [
-          {
-            "firstname": "Grace",
-          "lastname": "Taylor",
-            "age": 22,
-            "gender": "Female",
-            "birthdate": "2001-07-18"
-          },
-          {
-            "firstname": "John",
-            "lastname": "Wilson",
-            "age": 62,
-            "gender": "Male",
-            "birthdate": "1959-03-30"
-          }
-        ]
-      },
-      {
-        "firstname": "Emily",
-        "lastname": "Davis",
-        "email": "emily.davis@example.com",
-        "location": "Chicago",
-        "occupation": "Pharmacist",
-        "username": "emilyd",
-        "password": "pharmapass",
-        "patientList": [
-          {
-            "firstname": "Sophia",
-            "lastname": "Lee",
-            "age": 35,
-            "gender": "Female",
-            "birthdate": "1988-09-25"
-          },
-          {
-            "firstname": "Michael",
-            "lastname": "Clark",
-            "age": 42,
-            "gender": "Male",
-            "birthdate": "1981-06-12"
-          }
-        ]
-      }
-]
-  
-module.exports = users; 
+const medications = [
+  {
+    name: "Amplodipine",
+    dosage: "10 mg",
+    startDate: new Date("2023-09-15"),
+    direction: "Take once daily with food",
+    dispense: 30,
+    dispenseUnits: "tablets",
+    refills: 5,
+    supply: 150,
+  },
+  {
+    name: "Humira",
+    dosage: "20 mg",
+    startDate: new Date("2023-09-16"),
+    direction: "Take twice daily",
+    dispense: 60,
+    dispenseUnits: "capsules",
+    refills: 3,
+    supply: 180,
+  },
+  {
+    name: "Losartan",
+    dosage: "5 mg",
+    startDate: new Date("2023-09-14"),
+    direction: "Take as needed",
+    dispense: 15,
+    dispenseUnits: "pills",
+    refills: 2,
+    supply: 30,
+  },
+  {
+    name: "Methrotrexate",
+    dosage: "15 mg",
+    startDate: new Date("2023-09-17"),
+    direction: "Take with water",
+    dispense: 45,
+    dispenseUnits: "tablets",
+    refills: 4,
+    supply: 180,
+  },
+  {
+    name: "Ibuprofen",
+    dosage: "25 mg",
+    startDate: new Date("2023-09-18"),
+    direction: "Take in the evening",
+    dispense: 60,
+    dispenseUnits: "capsules",
+    refills: 3,
+    supply: 180,
+  },
+  {
+    name: "Lisinopril",
+    dosage: "20 mg",
+    startDate: new Date("2023-09-17"),
+    direction: "Take orally once daily",
+    dispense: 30,
+    dispenseUnits: "tablets",
+    refills: 5,
+    supply: 150,
+  },
+  {
+    name: "Amoxicillin",
+    dosage: "500 mg",
+    startDate: new Date("2023-09-18"),
+    direction: "Take orally three times daily",
+    dispense: 60,
+    dispenseUnits: "capsules",
+    refills: 0,
+    supply: 60,
+  },
+  {
+    name: "Simvastatin",
+    dosage: "40 mg",
+    startDate: new Date("2023-09-19"),
+    direction: "Take orally once daily",
+    dispense: 30,
+    dispenseUnits: "tablets",
+    refills: 11,
+    supply: 330,
+  },
+  {
+    name: "Levothyroxine",
+    dosage: "100 mcg",
+    startDate: new Date("2023-09-20"),
+    direction: "Take orally once daily",
+    dispense: 90,
+    dispenseUnits: "tablets",
+    refills: 2,
+    supply: 180,
+  },
+  {
+    name: "Omeprazole",
+    dosage: "20 mg",
+    startDate: new Date("2023-09-21"),
+    direction: "Take orally once daily",
+    dispense: 28,
+    dispenseUnits: "capsules",
+    refills: 4,
+    supply: 112,
+  },
+];
+
+module.exports = medications;

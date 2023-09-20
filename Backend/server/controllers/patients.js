@@ -1,4 +1,4 @@
-const Patient = require('../models/Patient'); // Import the Patient model
+const Patient = require('../models/Patients'); // Import the Patient model
 
 // Create a new patient
 const createPatient = async (req, res) => {

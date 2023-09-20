@@ -1,91 +1,67 @@
-const User = require("./models/User.js"); // Import the User model
+require("dotenv").config();
 const express = require("express");
+const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const multer = require("multer");
-const helmet = require("helmet");
-const morgan = require("morgan");
-const path = require("path");
-const { fileURLToPath } = require("url");
-const { register } = require("./controllers/auth.js");
-const authRoutes = require("./routes/auth.js");
-const userRoutes = require("./routes/users.js");
-const medsRoutes = require("./routes/meds.js");
-const { addRemoveMed } = require("./controllers/meds.js");
-const { verifyToken } = require("./middleware/auth.js");
-const { users } = require("./data/userData.js"); // Import user data
+const path = require("path"); // Import path module
+
+// Import your models, controllers, and middleware as needed
+const User = require("./models/User");
+const { registerUser, login } = require("./controllers/auth");
+const { fetchPatients, addPrescription } = require("./controllers/patients");
+const { fetchDashboard } = require("./controllers/dashboard");
+const { verifyToken } = require("./middleware/auth");
+
+// Import Routes
+const meds = require('./routes/meds.js'); // You had a typo here: 'meds' instead of 'medsRoutes'
+const auth = require("./routes/auth.js");
+const patients = require("./routes/patients.js"); // You had a typo here: 'patient' instead of 'patientRoutes'
+const dashboard = require("./routes/dashboard.js"); // You had a typo here: 'dashnoard' instead of 'dashboardRoutes'
+const users = require("./routes/users.js");
 
 /* CONFIGURATIONS */
-dotenv.config();
-const app = express();
 app.use(express.json());
-app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-app.use(morgan("common"));
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
-app.use("/assets", express.static(path.join(__dirname, "public/assets")));
-
-/* FILE STORAGE */
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/assets");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
-const upload = multer({ storage });
-
-/* ROUTES */
-app.use("/auth", authRoutes);
-app.use("/users", userRoutes);
-app.use("/meds", medsRoutes);
-
-// Define the /api/home route
-app.get('/api/home', async (req, res) => {
-  try {
-    // Perform any necessary logic here
-    // For example, you can fetch data from the User model
-    // or perform other actions to prepare the response
-
-    // Here, we're providing a simple JSON response
-    const generalInfo = {
-      message: 'Welcome to our website!',
-      featuredContent: 'Check out our latest articles.',
-    };
-
-    // Send a JSON response back to the frontend
-    res.status(200).json(generalInfo);
-  } catch (error) {
-    // Handle any errors and send an error response if needed
-    res.status(500).json({ error: 'An error occurred while processing the request.' });
-  }
-});
-
-// Static catch-all app; always goes last because we want to test everything else first
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-})
+app.use(bodyParser.urlencoded({ extended: true }));
 
 /* MONGOOSE SETUP */
-const PORT = process.env.PORT || 6002;
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
-    // Add data one time
-    // User.insertMany(users).then((insertedUsers) => {
-    //   console.log(`Inserted ${insertedUsers.length} users.`);
-    // }).catch((insertError) => {
-    //   console.error("Error inserting users:", insertError);
-    // });
-
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+    console.log("Connected to MongoDB");
   })
-  .catch((error) => console.log(`${error} did not connect`));
+  .catch((error) => {
+    console.error("MongoDB connection error:", error);
+  });
+
+/* ROUTES */
+
+// Home Page Route
+app.get("/api/home", (req, res) => {
+  // Handler function for the home page
+  // Provide general information or perform necessary actions
+  res.status(200).json({ message: "Welcome to the home page!" });
+});
+
+// Use the route files with their base paths
+app.use("/api/auth", auth);
+app.use("/api/patients", patients);
+app.use("/api/meds", meds);
+app.use("/api/dashboard", dashboard); // Corrected the path to dashboardRoutes
+app.use("/api/users", users); // Added the route for users
+
+// Catch-all route for serving the frontend
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
+/* SERVER SETUP */
+const PORT = process.env.PORT || 6002;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
