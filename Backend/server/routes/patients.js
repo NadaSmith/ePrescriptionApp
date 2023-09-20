@@ -8,7 +8,7 @@ const { verifyToken } = require('../middleware/auth');
 router.post('/api/patients', verifyToken, createPatient);
 
 // Route for getting all patients
-router.get('/api/patientlist', verifyToken, getAllPatients);
+router.get('/api/patients', verifyToken, getAllPatients);
 
 // Route for deleting a patient by ID
 router.delete('/api/patients/:id', verifyToken, deletePatient);
