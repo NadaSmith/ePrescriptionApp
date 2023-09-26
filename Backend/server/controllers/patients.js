@@ -12,6 +12,7 @@ const createPatient = async (req, res) => {
             gender,
         });
         const savedPatient = await newPatient.save();
+        res.setHeader('Content-Type', 'application/json');
         res.status(201).json(savedPatient);
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
@@ -22,6 +23,7 @@ const createPatient = async (req, res) => {
 const getAllPatients = async (req, res) => {
     try {
         const patients = await Patient.find();
+        res.setHeader('Content-Type', 'application/json');
         res.status(200).json(patients);
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
@@ -36,6 +38,7 @@ const deletePatient = async (req, res) => {
         if (!deletedPatient) {
             return res.status(404).json({ message: 'Patient not found' });
         }
+        res.setHeader('Content-Type', 'application/json');
         res.status(200).json(deletedPatient);
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
@@ -63,7 +66,7 @@ const updatePatient = async (req, res) => {
         if (!updatedPatient) {
             return res.status(404).json({ message: 'Patient not found' });
         }
-
+        res.setHeader('Content-Type', 'application/json');
         res.status(200).json(updatedPatient);
     } catch (error) {
         res.status(500).json({ message: 'Server error' });

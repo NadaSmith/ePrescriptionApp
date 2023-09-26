@@ -17,14 +17,15 @@ const { verifyToken } = require("./middleware/auth");
 // Import Routes
 const meds = require('./routes/meds.js'); // You had a typo here: 'meds' instead of 'medsRoutes'
 const auth = require("./routes/auth.js");
-const patients = require("./routes/patients.js"); // You had a typo here: 'patient' instead of 'patientRoutes'
-const dashboard = require("./routes/dashboard.js"); // You had a typo here: 'dashnoard' instead of 'dashboardRoutes'
+const patients = require("./routes/patients.js"); 
+const dashboard = require("./routes/dashboard.js");
 const users = require("./routes/users.js");
 
 /* CONFIGURATIONS */
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'build')));
 
 /* MONGOOSE SETUP */
 mongoose
@@ -87,10 +88,6 @@ app.use("/api/meds", meds);
 app.use("/api/dashboard", dashboard); // Corrected the path to dashboardRoutes
 app.use("/api/users", users); // Added the route for users
 
-// Catch-all route for serving the frontend
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
 
 /* SERVER SETUP */
 const PORT = process.env.PORT || 6002;
