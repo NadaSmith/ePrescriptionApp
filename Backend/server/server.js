@@ -28,7 +28,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'build')));
 
 /* MONGOOSE SETUP */
-mongoose.connect(process.env.MONGO_URI, {
+mongoose
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -41,12 +42,51 @@ mongoose.connect(process.env.MONGO_URI, {
 
 /* ROUTES */
 
+// Define your routes for patient operations
+app.get("/api/patients/patientlist", (req, res) => {
+  res.json(patients);
+});
+
+app.post("/api/patients/patients", (req, res) => {
+  const newPatient = req.body;
+  patients.push(newPatient);
+  res.status(201).json(newPatient);
+});
+
+app.put("/api/patients/:patientID", (req, res) => {
+  const patientID = req.params.patientID;
+  const updatedData = req.body;
+
+  const patientIndex = patients.findIndex((patient) => patient.id === patientID);
+
+  if (patientIndex !== -1) {
+    patients[patientIndex] = { ...patients[patientIndex], ...updatedData };
+    res.json(patients[patientIndex]);
+  } else {
+    res.status(404).json({ message: "Patient not found" });
+  }
+});
+
+app.delete("/api/patients/:patientID", (req, res) => {
+  const patientID = req.params.patientID;
+
+  patients = patients.filter((patient) => patient.id !== patientID);
+  res.json({ message: "Patient deleted" });
+});
+
+// Home Page Route
+app.get("/api/home", (req, res) => {
+  // Handler function for the home page
+  // Provide general information or perform necessary actions
+  res.status(200).json({ message: "Welcome to the home page!" });
+});
+
 // Use the route files with their base paths
 app.use("/api/auth", auth);
 app.use("/api/patients", patients);
 app.use("/api/meds", meds);
-app.use("/api/dashboard", dashboard); 
-app.use("/api/users", users); 
+app.use("/api/dashboard", dashboard); // Corrected the path to dashboardRoutes
+app.use("/api/users", users); // Added the route for users
 
 
 /* SERVER SETUP */
